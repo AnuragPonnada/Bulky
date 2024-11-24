@@ -1,0 +1,61 @@
+﻿@model List<BulkyWeb.Models.Student>
+@{
+    ViewData["Title"] = "Student Details";
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+<h3>@ViewData["Title"]</h3>
+
+@if (!string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success">
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+        <strong>Success!</strong>@successMessage
+    </div>
+    
+}
+else if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong>@errorMessage
+    </div>
+}
+<button class="btn btn-primary"><a id = "donttouch" asp-action="Index" asp-controller="Category">Add new Student</a></button>
+
+<table class="table table-responsive table-hover">
+    <thead>
+        <th class="text-center">Id</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Age</th>
+        <th class="text-center">Standard</th>
+        <th class="text-center">Action</th>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td class="text-center">@student.Id</td>
+                    <td class="text-center">@student.Name</td>
+                    <td class="text-center">@student.Age</td>
+                    <td class="text-center">@student.Standard</td>
+                    <td class="text-center">
+                        <div class="btn-group btnbtn-group-sm">
+                            <button class="btn btn-primary"><a id="donttouch" asp-action="Edit" asp-controller="Category" asp-route-id="@student.Id">Edit</a></button>
+                            <button class="btn btn-danger"><a id="donttouch" asp-action="Delete" asp-controller="Category" asp-route-id="@student.Id">Delete</a></button>
+                            
+                    </td>
+                </tr>
+            }
+        }
+        else
+            {
+              <tr>
+                  <td colspan="6">
+                      <div>No students available</div>
+                  </td>
+              </tr>  
+            }
+    </tbody>
+</table>

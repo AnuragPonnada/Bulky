@@ -1,0 +1,38 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "Edit Student";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong>@errorMessage
+    </div>
+}
+
+<form method="post" asp-action="Delete" asp-controller="Category" >
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Standard"></label>
+        <input asp-for="Standard" class="form-control" readonly />
+    </div>
+    <br />
+    <div class="d-grid">
+        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete student: @Model.Name')" />
+    </div>
+</form>
+
